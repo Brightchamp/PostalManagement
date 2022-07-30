@@ -5,7 +5,7 @@ const PostListItem = (props)=>{
     return(
         <div className = 'PostListItem'>
             <div>{post.serialNumber}</div>
-            <div>{post.recievedDate}</div>
+            <div>{`${post.recievedDate.getDate()}/${post.recievedDate.getMonth()+1}/${post.recievedDate.getFullYear()}`}</div>
             <div>{post.recieverName}</div>
             <div>{post.deliveryService}</div>
             <button onClick={onCollect}>Collected</button>
