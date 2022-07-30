@@ -14,6 +14,10 @@ const postSchema = new Schema({
     deliveryService : {
         type : String,
         required : true
+    },
+    serialNumber :{
+        type : Number,
+        required : true,
     }
 });
 

@@ -13,6 +13,12 @@ router.route('/id/:id').get((req,res)=>{
         .catch(err=> res.status(400).json('Error: '+err));
 });
 
+router.route('/reciever/:reciever').get((req,res)=>{
+    Post.find({recieverName : req.params.reciever})
+        .then(posts => res.json(posts))
+        .catch(err=> res.status(400).json('Error: '+err));
+});
+
 router.route('/add').post((req,res)=>{
     const newPost = new Post(req.body)
 
