@@ -3,7 +3,7 @@ const PostListItem = (props)=>{
     const post = props.post;
     const onCollect = props.onCollect
     return(
-        <div class = 'PostListItem'>
+        <div className = 'PostListItem'>
             <div>{post.serialNumber}</div>
             <div>{post.recievedDate}</div>
             <div>{post.recieverName}</div>
@@ -19,8 +19,8 @@ const PostList = (props)=>{
         <div className = 'PostList'>
             {posts.map(post => <PostListItem 
                                     post={post} 
-                                    onCollect = {props.onCollect}
-                                    key={post.key}
+                                    onCollect = {()=>props.onCollect(post._id)}
+                                    key={post._id}
                                     />)}
         </div>
     )
