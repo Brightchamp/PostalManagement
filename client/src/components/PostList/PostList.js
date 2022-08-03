@@ -14,10 +14,9 @@ const PostListItem = (props)=>{
 }
 
 const PostList = (props)=>{
-    const posts = props.posts;
     return(
         <div className = 'PostList'>
-            {posts.map(post => <PostListItem 
+            {props.posts.map(post => <PostListItem 
                                     post={post} 
                                     onCollect = {()=>props.onCollect(post._id)}
                                     key={post._id}

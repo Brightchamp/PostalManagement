@@ -21,9 +21,8 @@ router.route('/reciever/:reciever').get((req,res)=>{
 
 router.route('/add').post((req,res)=>{
     const newPost = new Post(req.body)
-
     newPost.save()
-        .then(res.json('Post added!'))
+        .then(savedDoc=>res.json({message:'Post added!',post:savedDoc}))
         .catch(err=> res.status(400).json('Error: '+err));
 });
 

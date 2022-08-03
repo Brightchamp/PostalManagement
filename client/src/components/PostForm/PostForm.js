@@ -1,15 +1,19 @@
-import { useState } from "react";
 import axios from "axios";
+import { useState,useEffect } from "react";
 import DateTimePicker from "react-datetime-picker";
 
 const PostForm = (props)=>{
 
-    cosnt [post,setPost] = useState({
+    const [post,setPost] = useState({
         recieverName : '',
         recievedDate : new Date(),
         deliveryService : '',
-        serialNumber : 1
+        serialNumber : props.serialNumber
     })
+
+    useEffect(()=>{
+        setPost(oldPost=>({...oldPost,serialNumber:props.serialNumber}))
+    },[props.serialNumber])
 
     const updatePost = (e)=>{
 
@@ -19,14 +23,22 @@ const PostForm = (props)=>{
         }))
     }
 
+    function formSubmit(e){
+        e.preventDefault();
+        axios.post(`http://localhost:5000/posts/add`,{...post})
+            .then(response =>{
+                props.onSubmit(response.data.post);
+            })
+    }
+
     return(
-        <form className="PostForm" onSubmit={()=>props.onSubmit(post)}>
+        <form className="PostForm" onSubmit={formSubmit}>
             <div className="formControl">
                 <label className="key">Reciever Name</label>
                 <input type='text' name="recieverName" value={post.recieverName} onChange={updatePost}/>
             </div>
             <div className="formControl">
-                <label className="key">Recieved Name</label>
+                <label className="key">Recieved Date</label>
                 <DateTimePicker value={post.recievedDate} onChange={(date)=>setPost(oldPost=>({...oldPost, recievedDate:date}))}/>
             </div>
             <div className="formControl">
@@ -37,6 +49,7 @@ const PostForm = (props)=>{
                 <label className="key">Delivery Service</label>
                 <input type='text' name="deliveryService" value={post.deliveryService} onChange={updatePost}/>
             </div>
+            <input type='submit'/>
         </form>
     )
 
